@@ -31,7 +31,7 @@ public class HelloController {
         return students;
     }
 
-    @PostMapping("/creteStudent")
+    @PostMapping("/createStudent")
     public Student createStudents(@RequestBody Student std ){
         students.add(std);
         return std;

@@ -1,0 +1,2 @@
+1. at this stage we our get api's dont need any authentication
+2.other api need the csrf token only
