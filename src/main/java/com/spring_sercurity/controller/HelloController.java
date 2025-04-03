@@ -1,12 +1,12 @@
 package com.spring_sercurity.controller;
 
 import com.spring_sercurity.entity.Student;
+import com.spring_sercurity.entity.Users;
+import com.spring_sercurity.repo.UserRepo;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.csrf.CsrfToken;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.w3c.dom.css.CSSFontFaceRule;
 
 import java.util.ArrayList;
@@ -14,6 +14,9 @@ import java.util.List;
 
 @RestController
 public class HelloController {
+
+    @Autowired
+    UserRepo userRepo;
 
     List<Student>students = new ArrayList<>(List.of(
             new Student(1L,"saurabh","1"),
@@ -41,6 +44,11 @@ public class HelloController {
     public CsrfToken getCsrftoken(HttpServletRequest request){
         return (CsrfToken) request.getAttribute("_csrf");
     }
+
+//    @GetMapping("/getUser/{username}")
+//    public Users getUser(String username){
+//        return userRepo.findByUsername(username);
+//    }
 }
 
 
