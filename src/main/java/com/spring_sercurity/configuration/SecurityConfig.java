@@ -1,5 +1,6 @@
 package com.spring_sercurity.configuration;
 
+import com.spring_sercurity.filter.JwtFilter;
 import com.spring_sercurity.service.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -22,6 +23,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.NoOpAuthenticationEntryPoint;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,6 +33,8 @@ import java.util.Map;
 public class SecurityConfig {
     @Autowired
     UserDetailsService userDetailsService;
+    @Autowired
+    JwtFilter jwtFilter;
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(customizer->customizer.disable()); //desable crsr you can add data without authentication
@@ -56,6 +60,7 @@ public class SecurityConfig {
          */
 
         http.sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         return  http.build();
     }
 

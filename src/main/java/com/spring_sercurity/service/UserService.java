@@ -18,6 +18,9 @@ public class UserService {
     @Autowired
     AuthenticationManager authenticationManager;
 
+    @Autowired
+    JWTService jwtService;
+
     public Users registerUser(Users user){
         user.setPassword(bCrypt.encode(user.getPassword()));
         return userRepo.save(user);
@@ -27,8 +30,10 @@ public class UserService {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(),user.getPassword()));
 
        if( authentication.isAuthenticated())
-           return "login";
+           return jwtService.generateToken(user.getUsername());
 
        return "fail";
     }
+
+
 }
