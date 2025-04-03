@@ -63,14 +63,10 @@ public class SecurityConfig {
 //        return new InMemoryUserDetailsManager(user1);
 //    } this is hardcoded so we are not gonna pass it
 
+    @Bean
     AuthenticationProvider authenticationProvider(){
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-
-        Map<String, PasswordEncoder> encoders = new HashMap<>();
-        encoders.put("noop", NoOpPasswordEncoder.getInstance());
-        PasswordEncoder passwordEncoder = new DelegatingPasswordEncoder("noop", encoders);
-        provider.setPasswordEncoder(passwordEncoder);
-//        provider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
+        provider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
         provider.setUserDetailsService(userDetailsService);
         return provider;
     }
