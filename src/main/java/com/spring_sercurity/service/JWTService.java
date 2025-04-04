@@ -28,6 +28,8 @@ public class JWTService {
             SecretKey sk = keyGen.generateKey();
             secretKey =Base64.getEncoder().encodeToString(sk.getEncoded());
 
+
+
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
@@ -49,6 +51,8 @@ public class JWTService {
     }
     private SecretKey getAuthKey(){
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
+        System.out.println("Secret key ::"+secretKey);
+        System.out.println("key Bytes ::"+keyBytes);
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
