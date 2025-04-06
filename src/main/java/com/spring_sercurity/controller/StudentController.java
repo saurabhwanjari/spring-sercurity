@@ -31,8 +31,13 @@ public class StudentController {
     public StudentDTO getStudentById2(@PathVariable Long id){
         return studentService.getStudentById2(id);
     }
+    @GetMapping("/getStudentById3/{id}")
+    public StudentDTO getStudentById3(@PathVariable Long id){
+        return studentService.getStudentById3(id);
+    }
     @GetMapping("/getAllStudent2")
     public List<StudentDTO> getAllStudentWithDto(){
         return studentService.getAllStudentWithDto();
     }
+
 }
