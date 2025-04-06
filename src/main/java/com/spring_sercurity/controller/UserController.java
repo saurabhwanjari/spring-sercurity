@@ -1,28 +1,27 @@
 package com.spring_sercurity.controller;
 
-import com.spring_sercurity.entity.Users;
-import com.spring_sercurity.service.UserService;
+import com.spring_sercurity.entity.Student;
+import com.spring_sercurity.entity.UserMaster;
+import com.spring_sercurity.service.UserMasterService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/user")
 public class UserController {
     @Autowired
-    UserService userService;
+    UserMasterService userMasterService;
 
     @PostMapping("/registerUser")
-    public Users registerUser (@RequestBody  Users user){
-        return userService.registerUser(user);
+    public UserMaster registerUser (@RequestBody  UserMaster user){
+        return userMasterService.registerUser(user);
     }
 
     @PostMapping("/login")
-    public String loginUser (@RequestBody  Users user){
-
-        return userService.authenticateUser(user);
-//        return "Login Successfully ";
+    public String loginUser (@RequestBody  UserMaster user){
+        return userMasterService.authenticateUser(user);
     }
+
 }

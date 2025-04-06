@@ -1,7 +1,16 @@
 package com.spring_sercurity.entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
-public class Student {
+import java.io.Serializable;
+
+@Entity
+public class Student extends  MyEntityAudit implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     String studentName;
     String rollNo;
@@ -10,6 +19,9 @@ public class Student {
         this.id = id;
         this.studentName = studentName;
         this.rollNo = rollNo;
+    }
+
+    public Student() {
     }
 
     public Long getId() {

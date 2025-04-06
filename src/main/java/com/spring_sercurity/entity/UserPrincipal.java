@@ -9,9 +9,9 @@ import java.util.Collections;
 import java.util.List;
 
 public class UserPrincipal implements UserDetails {
-   private Users user;
+   private UserMaster user;
 
-    public UserPrincipal(Users user){
+    public UserPrincipal(UserMaster user){
         this.user=user;
     }
 

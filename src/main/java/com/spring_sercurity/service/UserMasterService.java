@@ -1,7 +1,9 @@
 package com.spring_sercurity.service;
 
-import com.spring_sercurity.entity.Users;
-import com.spring_sercurity.repo.UserRepo;
+import com.spring_sercurity.entity.UserMaster;
+import com.spring_sercurity.mapper.StudentDtoMapper;
+import com.spring_sercurity.repo.StudentRepo;
+import com.spring_sercurity.repo.UserMasterRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -10,10 +12,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService {
+public class UserMasterService {
     private BCryptPasswordEncoder bCrypt = new BCryptPasswordEncoder(12);
     @Autowired
-    UserRepo userRepo;
+    UserMasterRepo userMasterRepo;
+
+    @Autowired
+    StudentRepo studentRepo;
 
     @Autowired
     AuthenticationManager authenticationManager;
@@ -21,12 +26,19 @@ public class UserService {
     @Autowired
     JWTService jwtService;
 
-    public Users registerUser(Users user){
-        user.setPassword(bCrypt.encode(user.getPassword()));
-        return userRepo.save(user);
+
+    private final StudentDtoMapper studentMapper;
+
+    public UserMasterService(StudentDtoMapper studentMapper) {
+        this.studentMapper=studentMapper;
     }
 
-    public String authenticateUser(Users user) {
+    public UserMaster registerUser(UserMaster user){
+        user.setPassword(bCrypt.encode(user.getPassword()));
+        return userMasterRepo.save(user);
+    }
+
+    public String authenticateUser(UserMaster user) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(),user.getPassword()));
 
        if( authentication.isAuthenticated())
@@ -34,6 +46,7 @@ public class UserService {
 
        return "fail";
     }
+
 
 
 }
